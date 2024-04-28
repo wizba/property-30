@@ -1,16 +1,15 @@
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
-import '@/assets/styles/globals.css'
+import Footer from "@/Components/Footer";
+import Navbar from "@/Components/Navbar";
+import "@/assets/styles/globals.css";
 import React from "react";
 
-export const metadata ={
-    title: 'Home | Find your dream',
-    description: 'Home page',
-    keywords: 'Home, page',
-}
+export const metadata = {
+  title: "Home | Find your dream",
+  description: "Home page",
+  keywords: "Home, page",
+};
 
-const MainLayout = ({children}) => {
-  
+const MainLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
