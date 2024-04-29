@@ -1,29 +1,54 @@
 "use client";
+import PropertyHeaderImage from "@/Components/PropertyHeaderImage";
+import { fetchProperty } from "@/common/request";
 import {
   useParams,
   usePathname,
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 
 const PropertyPage = () => {
+  
   const router = useRouter();
   const searchParams = useSearchParams();
-  const params = useParams();
+  const {id} = useParams();
+  const [property, setProperty] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    console.log(params);
-  }, [params]);
+  useEffect(()=>{
+    const fetchPropertyData = async () =>{
+      if(!id) return;
+      try {
+        const $property  =  await fetchProperty(id);
+        setProperty($property)
+      } catch (error) {
+        console.error('error fetching property :', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if(property === null){
+      fetchPropertyData()
+    }
+  },[id, property]);
+
+  if(!property && !loading){
+    return (
+      <h1 className="text-center text-2xl font-bold mt-10">
+        Property Not Found
+      </h1>
+    )
+  }
+
   return (
-    <div>
-      <button onClick={()=>{
-
-        router.push('/');
-      }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Button
-      </button>
-    </div>
+    <>
+    {!loading && property && <>
+      <PropertyHeaderImage image = { property.images[0] }/>
+    </>}
+    </>
   );
 };
 

@@ -3,9 +3,10 @@ import Link from "next/link";
 import Hero from "@/Components/Hero";
 import InfoBoxes from "@/Components/InfoBoxes";
 import HomeProperties from "@/Components/HomeProperties";
+import connectDB from "@/config/database";
 
-const HomePage = () => {
-  
+const HomePage = async() => {
+
   return <>
     <Hero />
     <InfoBoxes/>

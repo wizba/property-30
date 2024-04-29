@@ -1,9 +1,10 @@
 import React from "react";
-import properties from "@/properties.json";
 import PropertyCard from "./PropertyCard";
 import Link from "next/link";
+import {fetchProperties} from "@/common/request";
 
-const HomeProperties = () => {
+const HomeProperties = async() => {
+  const properties = await fetchProperties();
   const recentProperties = properties
     .sort(() => Math.random() - Math.random())
     .slice(0, 3);
@@ -29,7 +30,7 @@ const HomeProperties = () => {
       <section className="m-auto max-w-lg my-10 px-6">
         <Link
           href="/properties"
-          class="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
+          className="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
         >
           View All Properties
         </Link>

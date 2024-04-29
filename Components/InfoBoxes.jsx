@@ -30,7 +30,6 @@ const InfoBoxes = () => {
         >
           List your property and reach potential tenants. Rent as airbnb or long term
         </InfoBox>
-       
       </div>
     </div>
   </section>
