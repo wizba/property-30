@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 
 const Hero = () => {
@@ -22,7 +23,10 @@ const Hero = () => {
         <label htmlFor="location"  className="sr-only">Location</label>
         <input
           type="text"
+          name="location"
           id="location"
+          value={'Test'}
+          onChange={()=>{}}
           placeholder="Enter Location (City, State, Zip, etc"
            className="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500"
         />
