@@ -184,6 +184,9 @@ const Navbar = () => {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-0"
+                      onClick={()=>{
+                        setIsOpenProfile(false)
+                      }}
                     >
                       Your Profile
                     </Link>
