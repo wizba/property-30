@@ -1,9 +1,11 @@
 import { getSessionUser } from "@/common/getSessionUser";
+import cloudinary from "@/config/cloudinary";
 import connectDB from "@/config/database";
 import Property from "@/models/Property";
 
 // GET /api/properties
 export const GET = async (request) => {
+
   try {
     await connectDB();
     const properties = await Property.find({});
@@ -65,16 +67,37 @@ export const POST = async (request) => {
         email: formData.get("seller_info.email"),
         phone: formData.get("seller_info.phone"),
       },
-      // images,
       owner: userId,
     };
-   
-    const newProperty = new  Property(propertyData);
-    newProperty.save()
 
-    // return new Response(JSON.stringify({ message: "success" }), {
-    //   status: 200,
-    // });
+    // upload image(s) to cloudinary
+    const imageUploadPromises =  [];
+
+    for(const image of images){
+      const imageBuffer = await image.arrayBuffer();
+      const imageArray = Array.from(new Uint8Array(imageBuffer));
+
+      const imageData = Buffer.from(imageArray);
+
+      // convert the image data to base64
+      const imageBase64 = imageData.toString('base64');
+
+      // Make request to upload to cloudinary
+      const results = await cloudinary.uploader.upload(
+        `data:image/png;base64,${imageBase64}`,{
+          folder:'propertyPulse'
+        }
+      );
+
+      imageUploadPromises.push(results.secure_url);
+
+      // wait for all images to upload
+      const uploadedImages = await Promise.all(imageUploadPromises);
+      // Add uploaded images to the property data object
+      propertyData.images = uploadedImages;
+    }
+    const newProperty = new  Property(propertyData);
+    newProperty.save();
 
     return Response.redirect(`${process.env.NEXTAUTH_URL}/properties/${newProperty._id}`)
   } catch (error) {

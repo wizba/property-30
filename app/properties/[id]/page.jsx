@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import PropertyDetails from "@/Components/PropertyDetails";
 import { FaArrowLeft } from "react-icons/fa";
 import Spinner from "@/Components/Spinner";
+import PropertyImages from "@/Components/PropertyImages";
 
 const PropertyPage = () => {
   const router = useRouter();
@@ -149,6 +150,7 @@ const PropertyPage = () => {
               </div>
             </div>
           </section>
+          <PropertyImages   images={property.images}/>
         </>
       )}
     </>
