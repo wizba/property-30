@@ -39,13 +39,39 @@ export const authOptions = {
         return true;
     },
     // Modifies the session object
-    async session({session}){
-        // Get user from database
-        const user = await User.findOne({ email: session.user.email})
-        // Assign the user id to session
-        session.user.id = user._id.toString();
-        // return session
-        return session;
-    }
+    async session({ session }) {
+      // Get user from database
+      const user = await User.findOne({ email: session.user.email });
+      // Assign the user id to session
+      session.user.id = user._id.toString();
+      // return session
+      return session;
+    },
+    // Redirects after successful login
+    // async redirect({ url, baseUrl }) {
+    //   console.log("Original URL: ", url);
+    //   console.log("Base URL: ", baseUrl);
+
+    //   // Ensure the URL is properly parsed
+    //   let parsedUrl;
+    //   try {
+    //     parsedUrl = new URL(url, baseUrl);
+    //   } catch (e) {
+    //     parsedUrl = new URL(baseUrl);
+    //   }
+
+    //   const searchParams = parsedUrl.searchParams;
+
+    //   // Read the 'source' query parameter
+    //   const source = searchParams.get("source");
+
+    //   console.log("redirect ====== ", url, baseUrl, source);
+    //   debugger;
+    //   if (url === '/api/auth/signin') {
+    //      baseUrl + '/properties'; // Redirect after login
+    //   }
+
+    //   return baseUrl; // Default redirect
+    // }
   }
 };

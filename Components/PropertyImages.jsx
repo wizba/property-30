@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 
 const PropertyImages = ({ images }) => {
@@ -18,7 +17,7 @@ const PropertyImages = ({ images }) => {
               {({ ref, open }) => (
                 <Image
                   ref={ref}
-                  onClick={open}
+                  // onClick={open}
                   src={images[0]}
                   alt=""
                   className="object-cover h-[400px] mx-auto rounded-xl"
